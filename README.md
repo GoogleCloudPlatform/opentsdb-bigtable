@@ -5,7 +5,7 @@ This solution deploys OpenTSDB on Google Container Engine and uses Cloud Bigtabl
 
 
 The guide can be found at:
-https://coud.google.com/solutions/opentsdb-cloud-platform
+https://cloud.google.com/solutions/opentsdb-cloud-platform
 
 
 
