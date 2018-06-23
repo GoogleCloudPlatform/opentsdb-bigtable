@@ -16,6 +16,19 @@ kind: ServiceAccount
 metadata:
   name: heapster-opentsdb
 ---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: heapster-opentsdb
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:heapster
+subjects:
+- kind: ServiceAccount
+  name: heapster-opentsdb
+  namespace: default
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -31,7 +44,7 @@ spec:
       serviceAccountName: heapster-opentsdb
       containers:
       - name: heapster-opentsdb
-        image: gcr.io/google_containers/heapster-amd64:v1.3.0
+        image: k8s.gcr.io/heapster-amd64:v1.5.3
         imagePullPolicy: IfNotPresent
         command:
         - /heapster
