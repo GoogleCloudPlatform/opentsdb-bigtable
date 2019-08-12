@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: opentsdb-init
-          image: gcr.io/cloud-solutions-images/opentsdb-bigtable:v1
+          image: akkalytics/opentsdb-bigtable-fixed:latest
           args: ["init"]
           volumeMounts:
             - name: "opentsdb-config"

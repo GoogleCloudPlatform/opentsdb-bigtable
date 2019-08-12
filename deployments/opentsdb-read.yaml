@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: opentsdb-read
-          image: gcr.io/cloud-solutions-images/opentsdb-bigtable:v1
+          image: akkalytics/opentsdb-bigtable-fixed:latest
           ports:
             - containerPort: 4242
               protocol: TCP

@@ -20,7 +20,7 @@ test ! -f /opt/opentsdb/opentsdb.conf && echo "Missing opentsdb.conf" && exit 1
 PROJECTID=$(grep google.bigtable.project.id /opt/opentsdb/opentsdb.conf | awk '{print $3}')
 INSTANCEID=$(grep google.bigtable.instance.id /opt/opentsdb/opentsdb.conf | awk '{print $3}')
 
-export HBASE_HOME=/hbase-1.2.1
+export HBASE_HOME=/hbase-1.2.12
 export PATH=$PATH:$HBASE_HOME/bin
 export OPENTSDB=/opentsdb
 
@@ -28,6 +28,8 @@ sed -i "s/INSTANCEID/$INSTANCEID/;s/PROJECTID/$PROJECTID/" $HBASE_HOME/conf/hbas
 
 
 init() {
+    # remove backwards incompatible TTL flag
+    sed -i "s/, TTL => '\$TSDB_TTL'//g" $OPENTSDB/src/create_table.sh
     env COMPRESSION=NONE $OPENTSDB/src/create_table.sh
 }
 
