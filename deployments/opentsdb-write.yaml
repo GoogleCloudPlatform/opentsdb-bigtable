@@ -11,17 +11,20 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: opentsdb-write
 spec:
   replicas: 3
+  selector:
+    matchLabels:
+      app: opentsdb-write
   template:
     metadata:
       labels:
         app: opentsdb-write
-    spec:
+    spec:          
       containers:
         - name: opentsdb-write
           image: gcr.io/cloud-solutions-images/opentsdb-bigtable:v1
