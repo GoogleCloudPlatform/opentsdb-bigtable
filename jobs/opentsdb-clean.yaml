@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: opentsdb-clean
-          image: gcr.io/cloud-solutions-images/opentsdb-bigtable:v1
+          image: gcr.io/cloud-solutions-images/opentsdb-bigtable:v2
           args: ["clean"]
           volumeMounts:
             - name: "opentsdb-config"
