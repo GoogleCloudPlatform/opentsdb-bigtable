@@ -29,12 +29,15 @@ subjects:
   name: heapster-opentsdb
   namespace: default
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: heapster-opentsdb
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: heapster-opentsdb
   template:
     metadata:
       labels:
