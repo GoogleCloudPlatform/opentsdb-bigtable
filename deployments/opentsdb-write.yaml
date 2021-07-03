@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: opentsdb-write
-          image: gcr.io/cloud-solutions-images/opentsdb-bigtable:v2
+          image: gcr.io/cloud-solutions-images/opentsdb-bigtable:v2.1
           ports:
             - containerPort: 4242
               protocol: TCP
