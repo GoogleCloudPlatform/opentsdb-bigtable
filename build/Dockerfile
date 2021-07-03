@@ -34,10 +34,13 @@ RUN git clone https://github.com/OpenTSDB/opentsdb.git && \
     # Change http to https
     grep -ri "http://repo1" ./* | grep include.mk | awk -F':' '{print $1}' | xargs sed -i 's/http:\/\/repo1/https:\/\/repo1/' && \
     # Remove TTL=>forever from create_table
-    sed -i "s/, TTL => '\$TSDB_TTL'}/}/" src/create_table.sh && \
-    sh build-bigtable.sh install
+    sed -i "s/, TTL => '\$TSDB_TTL'}/}/" src/create_table.sh
 
 COPY hbase-site.xml /hbase-1.4.3/conf
+COPY include.mk /opentsdb/third_party/asyncbigtable/include.mk
+COPY asyncbigtable-0.4.2-jar-with-dependencies.jar.md5 /opentsdb/third_party/asyncbigtable/asyncbigtable-0.4.2-jar-with-dependencies.jar.md5
+
+RUN cd /opentsdb && sh build-bigtable.sh install
 
 COPY docker-entrypoint.sh /
 
