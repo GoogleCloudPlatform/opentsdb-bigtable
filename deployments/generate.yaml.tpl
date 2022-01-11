@@ -1,4 +1,4 @@
-# Copyright 2017 Google, Inc.
+# Copyright 2021 Google, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,30 +14,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: opentsdb-write
+  name: generate-opentsdb
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: opentsdb-write
+      app: generate-opentsdb
   template:
     metadata:
       labels:
-        app: opentsdb-write
+        app: generate-opentsdb
     spec:
       containers:
-        - name: opentsdb-write
-          image: gcr.io/cloud-solutions-images/opentsdb-bigtable:v2.1
-          ports:
-            - containerPort: 4242
-              protocol: TCP
-          volumeMounts:
-            - name: "opentsdb-config"
-              mountPath: "/opt/opentsdb"
-      volumes:
-        - name: "opentsdb-config"
-          configMap:
-            name: "opentsdb-config"
-            items:
-              - key: "opentsdb.conf"
-                path: "opentsdb.conf"
+      - name: generate-opentsdb
+        image: ${REGION}-docker.pkg.dev/${PROJECT_ID}/${AR_REPO}/${GEN_IMAGE_NAME}:${GEN_IMAGE_TAG}

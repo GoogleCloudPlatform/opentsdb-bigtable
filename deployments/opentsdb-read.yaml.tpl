@@ -1,4 +1,4 @@
-# Copyright 2021 Google, Inc.
+# Copyright 2017 Google, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,17 +14,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: generate-opentsdb
+  name: opentsdb-read
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: generate-opentsdb
+      app: opentsdb-read
   template:
     metadata:
       labels:
-        app: generate-opentsdb
+        app: opentsdb-read
     spec:
       containers:
-      - name: generate-opentsdb
-        image: gcr.io/cloud-solutions-images/opentsdb-gen:0.1.1
+        - name: opentsdb-read
+          image: ${REGION}-docker.pkg.dev/${PROJECT_ID}/${AR_REPO}/${SERVER_IMAGE_NAME}:${SERVER_IMAGE_TAG}
+          ports:
+            - containerPort: 4242
+              protocol: TCP
+          volumeMounts:
+            - name: "opentsdb-config"
+              mountPath: "/opt/opentsdb"
+      volumes:
+        - name: "opentsdb-config"
+          configMap:
+            name: "opentsdb-config"
+            items:
+              - key: "opentsdb.conf"
+                path: "opentsdb.conf"

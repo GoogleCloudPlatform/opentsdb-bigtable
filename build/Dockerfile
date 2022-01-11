@@ -40,6 +40,9 @@ COPY hbase-site.xml /hbase-1.4.3/conf
 COPY include.mk /opentsdb/third_party/asyncbigtable/include.mk
 COPY asyncbigtable-0.4.2-jar-with-dependencies.jar.md5 /opentsdb/third_party/asyncbigtable/asyncbigtable-0.4.2-jar-with-dependencies.jar.md5
 
+RUN apt-get install -y python3 python3-pip
+RUN ln -s /usr/bin/python3 /usr/bin/python
+
 RUN cd /opentsdb && sh build-bigtable.sh install
 
 COPY docker-entrypoint.sh /

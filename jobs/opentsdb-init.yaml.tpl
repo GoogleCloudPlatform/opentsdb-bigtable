@@ -14,16 +14,16 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: opentsdb-clean
+  name: opentsdb-init
 spec:
   template:
     metadata:
-      name: opentsdb-clean
+      name: opentsdb-init
     spec:
       containers:
-        - name: opentsdb-clean
-          image: gcr.io/cloud-solutions-images/opentsdb-bigtable:v2
-          args: ["clean"]
+        - name: opentsdb-init
+          image: ${REGION}-docker.pkg.dev/${PROJECT_ID}/${AR_REPO}/${SERVER_IMAGE_NAME}:${SERVER_IMAGE_TAG}
+          args: ["init"]
           volumeMounts:
             - name: "opentsdb-config"
               mountPath: "/opt/opentsdb"

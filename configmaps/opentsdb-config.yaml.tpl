@@ -17,9 +17,9 @@ metadata:
   name: opentsdb-config
 data:
   opentsdb.conf: |
-    google.bigtable.project.id = REPLACE_WITH_PROJECT
-    google.bigtable.instance.id = REPLACE_WITH_INSTANCE
-    google.bigtable.zone.id = REPLACE_WITH_ZONE
+    google.bigtable.project.id = ${PROJECT_ID}
+    google.bigtable.instance.id = ${BIGTABLE_INSTANCE_ID}
+    google.bigtable.zone.id = ${ZONE}
     hbase.client.connection.impl = com.google.cloud.bigtable.hbase1_x.BigtableConnection
     google.bigtable.auth.service.account.enable = true
 

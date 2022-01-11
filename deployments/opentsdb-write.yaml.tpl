@@ -11,19 +11,26 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-apiVersion: batch/v1
-kind: Job
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: opentsdb-init
+  name: opentsdb-write
 spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: opentsdb-write
   template:
     metadata:
-      name: opentsdb-init
+      labels:
+        app: opentsdb-write
     spec:
       containers:
-        - name: opentsdb-init
-          image: gcr.io/cloud-solutions-images/opentsdb-bigtable:v2
-          args: ["init"]
+        - name: opentsdb-write
+          image: ${REGION}-docker.pkg.dev/${PROJECT_ID}/${AR_REPO}/${SERVER_IMAGE_NAME}:${SERVER_IMAGE_TAG}
+          ports:
+            - containerPort: 4242
+              protocol: TCP
           volumeMounts:
             - name: "opentsdb-config"
               mountPath: "/opt/opentsdb"
@@ -34,4 +41,3 @@ spec:
             items:
               - key: "opentsdb.conf"
                 path: "opentsdb.conf"
-      restartPolicy: Never
