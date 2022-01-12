@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ASYNCBIGTABLE_VERSION := 0.4.2
+ASYNCBIGTABLE_VERSION := 0.4.3
 ASYNCBIGTABLE := third_party/asyncbigtable/asyncbigtable-$(ASYNCBIGTABLE_VERSION)-jar-with-dependencies.jar
-ASYNCBIGTABLE_BASE_URL := https://repo1.maven.org/maven2/com/pythian/opentsdb/asyncbigtable/0.4.2
+ASYNCBIGTABLE_BASE_URL := https://repo1.maven.org/maven2/com/pythian/opentsdb/asyncbigtable/0.4.3
 $(ASYNCBIGTABLE): $(ASYNCBIGTABLE).md5
 	set dummy "$(ASYNCBIGTABLE_BASE_URL)" "$(ASYNCBIGTABLE)"; shift; $(FETCH_DEPENDENCY)
 

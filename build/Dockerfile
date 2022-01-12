@@ -28,17 +28,13 @@ RUN curl -f https://archive.apache.org/dist/hbase/1.4.3/hbase-1.4.3-bin.tar.gz |
 RUN git clone https://github.com/OpenTSDB/opentsdb.git && \
     cd opentsdb && \
     git fetch --tags && \
-    git checkout tags/v2.4.0 && \
-    # Change central maven repo URLs
-    grep -ri "central" ./* | grep include.mk | awk -F':' '{print $1}' | xargs sed -i 's/http:\/\/central/https:\/\/repo1/' && \
-    # Change http to https
-    grep -ri "http://repo1" ./* | grep include.mk | awk -F':' '{print $1}' | xargs sed -i 's/http:\/\/repo1/https:\/\/repo1/' && \
+    git checkout tags/v2.4.1 && \
     # Remove TTL=>forever from create_table
     sed -i "s/, TTL => '\$TSDB_TTL'}/}/" src/create_table.sh
 
 COPY hbase-site.xml /hbase-1.4.3/conf
 COPY include.mk /opentsdb/third_party/asyncbigtable/include.mk
-COPY asyncbigtable-0.4.2-jar-with-dependencies.jar.md5 /opentsdb/third_party/asyncbigtable/asyncbigtable-0.4.2-jar-with-dependencies.jar.md5
+COPY asyncbigtable-0.4.3-jar-with-dependencies.jar.md5 /opentsdb/third_party/asyncbigtable/asyncbigtable-0.4.3-jar-with-dependencies.jar.md5
 
 RUN apt-get install -y python3 python3-pip
 RUN ln -s /usr/bin/python3 /usr/bin/python
