@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright 2017 Google Inc.
+# Copyright 2022 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ test ! -f /opt/opentsdb/opentsdb.conf && echo "Missing opentsdb.conf" && exit 1
 PROJECTID=$(grep google.bigtable.project.id /opt/opentsdb/opentsdb.conf | awk '{print $3}')
 INSTANCEID=$(grep google.bigtable.instance.id /opt/opentsdb/opentsdb.conf | awk '{print $3}')
 
-export HBASE_HOME=/hbase-1.4.3
+export HBASE_HOME=/hbase-2.4.9
 export PATH=$PATH:$HBASE_HOME/bin
 export OPENTSDB=/opentsdb
 

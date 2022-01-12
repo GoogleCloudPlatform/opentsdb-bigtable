@@ -1,5 +1,3 @@
-#!/bin/bash
-#
 # Copyright 2022 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,9 +12,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-rm -Rf build/src
-mkdir build/src
-cp gen.py build/src
-cp requirements.txt build/src
-gcloud builds submit --tag ${REGION}-docker.pkg.dev/${PROJECT_ID}/${AR_REPO}/${GEN_IMAGE_NAME}:${GEN_IMAGE_TAG} build
-rm -Rf build/src
+gcloud builds submit --tag ${REGION}-docker.pkg.dev/${PROJECT_ID}/${AR_REPO}/${IMAGE_NAME}:${IMAGE_TAG} .

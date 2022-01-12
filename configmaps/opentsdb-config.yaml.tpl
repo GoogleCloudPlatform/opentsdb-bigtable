@@ -1,4 +1,4 @@
-# Copyright 2017 Google, Inc.
+# Copyright 2022 Google, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ data:
     google.bigtable.project.id = ${PROJECT_ID}
     google.bigtable.instance.id = ${BIGTABLE_INSTANCE_ID}
     google.bigtable.zone.id = ${ZONE}
-    hbase.client.connection.impl = com.google.cloud.bigtable.hbase1_x.BigtableConnection
+    hbase.client.connection.impl = com.google.cloud.bigtable.hbase2_x.BigtableConnection
     google.bigtable.auth.service.account.enable = true
 
     tsd.network.port = 4242
