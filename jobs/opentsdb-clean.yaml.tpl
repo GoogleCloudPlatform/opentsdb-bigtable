@@ -1,4 +1,4 @@
-# Copyright 2017 Google, Inc.
+# Copyright 2022 Google, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,26 +11,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: opentsdb-write
+  name: opentsdb-clean
 spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: opentsdb-write
   template:
     metadata:
-      labels:
-        app: opentsdb-write
+      name: opentsdb-clean
     spec:
       containers:
-        - name: opentsdb-write
-          image: gcr.io/cloud-solutions-images/opentsdb-bigtable:v2.1
-          ports:
-            - containerPort: 4242
-              protocol: TCP
+        - name: opentsdb-clean
+          image: ${REGION}-docker.pkg.dev/${PROJECT_ID}/${AR_REPO}/${SERVER_IMAGE_NAME}:${SERVER_IMAGE_TAG}
+          args: ["clean"]
           volumeMounts:
             - name: "opentsdb-config"
               mountPath: "/opt/opentsdb"
@@ -41,3 +34,4 @@ spec:
             items:
               - key: "opentsdb.conf"
                 path: "opentsdb.conf"
+      restartPolicy: Never

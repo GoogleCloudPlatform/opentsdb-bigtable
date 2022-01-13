@@ -1,4 +1,4 @@
-# Copyright 2017 Google, Inc.
+# Copyright 2022 Google, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: opentsdb-init
-          image: gcr.io/cloud-solutions-images/opentsdb-bigtable:v2
+          image: ${REGION}-docker.pkg.dev/${PROJECT_ID}/${AR_REPO}/${SERVER_IMAGE_NAME}:${SERVER_IMAGE_TAG}
           args: ["init"]
           volumeMounts:
             - name: "opentsdb-config"

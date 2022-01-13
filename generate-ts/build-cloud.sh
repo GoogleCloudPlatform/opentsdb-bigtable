@@ -1,4 +1,6 @@
-# Copyright 2021 Google Inc.
+#!/bin/bash
+#
+# Copyright 2022 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,10 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ASYNCBIGTABLE_VERSION := 0.4.3
-ASYNCBIGTABLE := third_party/asyncbigtable/asyncbigtable-$(ASYNCBIGTABLE_VERSION)-jar-with-dependencies.jar
-ASYNCBIGTABLE_BASE_URL := https://repo1.maven.org/maven2/com/pythian/opentsdb/asyncbigtable/0.4.3
-$(ASYNCBIGTABLE): $(ASYNCBIGTABLE).md5
-	set dummy "$(ASYNCBIGTABLE_BASE_URL)" "$(ASYNCBIGTABLE)"; shift; $(FETCH_DEPENDENCY)
-
-THIRD_PARTY += $(ASYNCBIGTABLE)
+rm -Rf build/src
+mkdir build/src
+cp gen.py build/src
+cp requirements.txt build/src
+gcloud builds submit --tag ${REGION}-docker.pkg.dev/${PROJECT_ID}/${AR_REPO}/${GEN_IMAGE_NAME}:${GEN_IMAGE_TAG} build
+rm -Rf build/src

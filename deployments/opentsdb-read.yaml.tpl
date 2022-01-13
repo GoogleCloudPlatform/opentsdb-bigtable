@@ -1,4 +1,4 @@
-# Copyright 2017 Google, Inc.
+# Copyright 2022 Google, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: opentsdb-read
-          image: gcr.io/cloud-solutions-images/opentsdb-bigtable:v2.1
+          image: ${REGION}-docker.pkg.dev/${PROJECT_ID}/${AR_REPO}/${SERVER_IMAGE_NAME}:${SERVER_IMAGE_TAG}
           ports:
             - containerPort: 4242
               protocol: TCP
