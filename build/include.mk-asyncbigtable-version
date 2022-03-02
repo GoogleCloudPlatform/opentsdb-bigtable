@@ -12,5 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-IMAGE_TAG="${REGION}-docker.pkg.dev/${PROJECT_ID}/${AR_REPO}/${SERVER_IMAGE_NAME}:${SERVER_IMAGE_TAG}"
-gcloud builds submit --tag ${IMAGE_TAG} .
+ASYNCBIGTABLE_VERSION := %%ASYNCBIGTABLE_VERSION%%
+ASYNCBIGTABLE := third_party/asyncbigtable/asyncbigtable-$(ASYNCBIGTABLE_VERSION)-jar-with-dependencies.jar
+ASYNCBIGTABLE_BASE_URL := https://repo1.maven.org/maven2/com/pythian/opentsdb/asyncbigtable/%%ASYNCBIGTABLE_VERSION%%
+$(ASYNCBIGTABLE): $(ASYNCBIGTABLE).md5
+	set dummy "$(ASYNCBIGTABLE_BASE_URL)" "$(ASYNCBIGTABLE)"; shift; $(FETCH_DEPENDENCY)
+
+THIRD_PARTY += $(ASYNCBIGTABLE)
