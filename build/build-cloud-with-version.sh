@@ -14,8 +14,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# check for required image tag arguments
 
-# check for required arguments
+[ -z $REGION ] && \
+    echo "env var REGION is not set" && EXIT_SCRIPT=1
+[ -z $PROJECT_ID ] && \
+    echo "env var PROJECT_ID is not set" && EXIT_SCRIPT=1
+[ -z $AR_REPO ] && \
+    echo "env var AR_REPO is not set" && EXIT_SCRIPT=1
+[ -z $SERVER_IMAGE_NAME ] && \
+    echo "env var SERVER_IMAGE_NAME is not set" && EXIT_SCRIPT=1
+[ -z $SERVER_IMAGE_TAG ] && \
+    echo "env var SERVER_IMAGE_TAG is not set" && EXIT_SCRIPT=1
+
+# check for required component version arguments
 
 [ -z $DEBIAN_VERSION ] && \
      echo "env var DEBIAN_VERSION is not set" && EXIT_SCRIPT=1
