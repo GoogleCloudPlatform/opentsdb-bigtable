@@ -12,4 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-gcloud builds submit --tag ${REGION}-docker.pkg.dev/${PROJECT_ID}/${AR_REPO}/${IMAGE_NAME}:${IMAGE_TAG} .
+# check for required image tag arguments
+
+[ -z $REGION ] && \
+    echo "env var REGION is not set" && EXIT_SCRIPT=1
+[ -z $PROJECT_ID ] && \
+    echo "env var PROJECT_ID is not set" && EXIT_SCRIPT=1
+[ -z $AR_REPO ] && \
+    echo "env var AR_REPO is not set" && EXIT_SCRIPT=1
+[ -z $SERVER_IMAGE_NAME ] && \
+    echo "env var SERVER_IMAGE_NAME is not set" && EXIT_SCRIPT=1
+[ -z $SERVER_IMAGE_TAG ] && \
+    echo "env var SERVER_IMAGE_TAG is not set" && EXIT_SCRIPT=1
+
+
+IMAGE_TAG="${REGION}-docker.pkg.dev/${PROJECT_ID}/${AR_REPO}/${SERVER_IMAGE_NAME}:${SERVER_IMAGE_TAG}"
+
+gcloud builds submit --tag ${IMAGE_TAG} .
