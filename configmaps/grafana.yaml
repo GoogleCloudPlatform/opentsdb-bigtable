@@ -24,7 +24,7 @@ data:
 
     upcheck='curl -sS localhost:3000'
 
-    until $upcheck 2> /dev/null; do ((count++)) && ((count==10)) && echo "Grafana failed to start in $count seconds" && exit 1; sleep 1; done
+    until $upcheck 2> /dev/null; do ((count++)) && ((count==30)) && echo "Grafana failed to start in $count seconds" && exit 1; sleep 1; done
 
     echo "Grafana took $count seconds to start - ready"
 
